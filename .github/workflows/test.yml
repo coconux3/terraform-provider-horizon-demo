@@ -38,9 +38,9 @@ jobs:
 
     steps:
       - name: Configure Runs-On
-        uses: runs-on/action@v2
+        uses: runs-on/action@4a3bfc79f21a9b97e972e2ba75a2b0b1e9688670 # v2
       - name: Fetch secrets via Vault
-        uses: hashicorp/vault-action@v3
+        uses: hashicorp/vault-action@4c06c5ccf5c0761b6029f56cfb1dcf5565918a3b # v3
         with:
           url: ${{ vars.VAULT_ADDR }}
           method: ${{ vars.VAULT_AUTH_METHOD }}
@@ -57,11 +57,12 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
+          persist-credentials: false
       - name: Install mise
-        uses: jdx/mise-action@v4
+        uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4
 
       - name: Log in to Harbor
-        uses: docker/login-action@v3
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
         with:
           registry: ${{ env.REGISTRY_HOST }}
           username: ${{ env.REGISTRY_USERNAME }}
@@ -85,7 +86,7 @@ jobs:
 
       - name: Publish JUnit summary
         if: always()
-        uses: mikepenz/action-junit-report@v6
+        uses: mikepenz/action-junit-report@a16be3a69023e9bd7e748ede768b3282ea7b30ce # v6
         with:
           check_name: tests (${{ matrix.scenario.horizon-version }})
           report_paths: |
