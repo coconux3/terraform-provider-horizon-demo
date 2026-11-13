@@ -19,13 +19,15 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: runs-on/action@v2
+      - uses: runs-on/action@4a3bfc79f21a9b97e972e2ba75a2b0b1e9688670 # v2
 
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Set up mise
-        uses: jdx/mise-action@v3
+        uses: jdx/mise-action@5228313ee0372e111a38da051671ca30fc5a96db # v3
 
       - name: Determine latest release of each maintained version
         id: set-matrix
@@ -39,10 +41,10 @@ jobs:
       matrix: ${{ fromJSON(needs.discover-releases.outputs.matrix) }}
 
     steps:
-      - uses: runs-on/action@v2
+      - uses: runs-on/action@4a3bfc79f21a9b97e972e2ba75a2b0b1e9688670 # v2
 
       - name: Fetch secrets via Vault
-        uses: hashicorp/vault-action@v2
+        uses: hashicorp/vault-action@9c2d817b85b9fff56bcab21cb74b485aee9e9d73 # v2
         with:
           url: ${{ vars.VAULT_ADDR }}
           method: ${{ vars.VAULT_AUTH_METHOD }}
